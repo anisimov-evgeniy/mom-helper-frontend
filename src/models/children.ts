@@ -1,13 +1,12 @@
-export enum UserRoleEnum {
-  ADMIN = 'admin',
-  USER = 'user',
+export enum GenderEnum {
+  MALE = 'male',
+  FEMALE = 'female',
 }
 
-export interface UserProps {
+export interface ChildrenProps {
   id?: number;
   name: string;
-  email: string;
-  role: UserRoleEnum;
-  createdAt: string;
-  updatedAt: string;
+  birthDate: string;
+  gender: GenderEnum;
+  userId: 1; // Mom id
 }

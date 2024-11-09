@@ -1,61 +1,61 @@
 import {makeAutoObservable} from 'mobx';
-import {ChildrenProps} from '../models/children.ts';
-import {childrenAPI} from '../services/children.ts';
+import {ActivityRecordsProps} from '../models/activityRecords.ts';
+import {activityRecordsAPI} from '../services/activityRecords.ts';
 
-export class ChildrenStore {
+export class ActivityRecordsStore {
   private _loading: boolean = false;
-  private _children?: ChildrenProps[] = undefined;
-  private _selectedChild?: ChildrenProps = undefined;
+  private _activityRecords?: ActivityRecordsProps[] = undefined;
+  private _selectedActivityRecord?: ActivityRecordsProps = undefined;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  get children() {
-    return this._children;
+  get activityRecords() {
+    return this._activityRecords;
   }
 
-  get selectedChild() {
-    return this._selectedChild;
+  get selectedActivityRecord() {
+    return this._selectedActivityRecord;
   }
 
   get loading() {
     return this._loading;
   }
 
-  public async getChildren() {
+  public async getActivityRecords() {
     this._loading = true;
     try {
-      const response = await childrenAPI.getChildren();
-      this._children = response.data;
+      const response = await activityRecordsAPI.getActivityRecords();
+      this._activityRecords = response.data;
     } catch (error) {
-      this._children = undefined;
-      console.error('Ошибка получения информации о детях:', error);
+      this._activityRecords = undefined;
+      console.error('Ошибка получения информации об активностях:', error);
     } finally {
       this._loading = false;
     }
   }
 
-  public async getChildById(id: number) {
+  public async getActivityRecordById(id: number) {
     this._loading = true;
     try {
-      const response = await childrenAPI.getChildById(id);
-      this._selectedChild = response.data;
+      const response = await activityRecordsAPI.getActivityRecordById(id);
+      this._selectedActivityRecord = response.data;
     } catch (error) {
-      this._selectedChild = undefined;
-      console.error(`Ошибка получения ребенка с id:${id}`, error);
+      this._selectedActivityRecord = undefined;
+      console.error(`Ошибка получения активности с id:${id}`, error);
     } finally {
       this._loading = false;
     }
   }
 
-  public async deleteChild(id: number) {
+  public async deleteActivityRecord(id: number) {
     this._loading = true;
     try {
-      await childrenAPI.deleteChild(id);
+      await activityRecordsAPI.deleteActivityRecord(id);
       // Нотификация удаления
     } catch (error) {
-      console.error(`Ошибка получения ребенка с id:${id}`, error);
+      console.error(`Ошибка получения активности с id:${id}`, error);
     } finally {
       this._loading = false;
     }

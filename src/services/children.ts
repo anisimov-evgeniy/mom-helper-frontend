@@ -1,17 +1,12 @@
 // Методы авторизации
 import API from '../api/apiClient.ts';
+import {ChildrenProps} from '../models/children.ts';
 
-interface UserResponse {
-  id: number;
-  name: string;
-  email: string;
-}
+const BASE_URL = '/children';
 
-export const userAPI = {
-  getUserInfo: () => API.get<UserResponse>('/user/me'),
-  // Админские запросы
-  create: () => API.post<UserResponse>('/user'),
-  getUsers: () => API.get<UserResponse>('/user'),
-  getUserById: (id: number) => API.get<UserResponse>(`/user${id}`),
-  deleteUser: (id: number) => API.get<UserResponse>(`/user${id}`),
+export const childrenAPI = {
+  create: () => API.post<ChildrenProps>(BASE_URL),
+  getChildren: () => API.get<ChildrenProps[]>(BASE_URL),
+  getChildById: (id: number) => API.get<ChildrenProps>(`${BASE_URL}/${id}`),
+  deleteChild: (id: number) => API.get<ChildrenProps>(`${BASE_URL}/${id}`),
 };
